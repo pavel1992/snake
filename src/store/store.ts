@@ -18,6 +18,20 @@ export enum Direction {
     BOTTOM,
 }
 
+
+type directionPairs = {
+    first: Direction,
+    second: Direction,
+}
+
+export const OppositePairs: Array<directionPairs> =
+    [
+        {first: Direction.LEFT, second: Direction.RIGHT},
+        {first: Direction.TOP, second: Direction.BOTTOM},
+        {first: Direction.RIGHT, second: Direction.LEFT},
+        {first: Direction.BOTTOM, second: Direction.TOP},
+    ]
+
 export type Coords = {
     x: number
     y: number
@@ -45,7 +59,7 @@ export const defaultState: AppState = {
     gameState: {
         direction: Direction.RIGHT,
         snakePosition: [{x: 0, y: 0}],
-        foodPosition: {x: 5, y: 0},
+        foodPosition: {x: 1, y: 1},
         score: 0,
         firstRun: true,
         gameInProgress: false,

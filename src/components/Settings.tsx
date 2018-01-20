@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField'
 import CreateSettingsAction from '../store/actionCreators/settingsActionCreator'
 import { connect } from 'react-redux'
 import store from '../store/store'
+import styled from 'styled-components'
 
 const changeSettings = (value: number, settingName: 'columns'| 'rows') => {
     let newValue = value || 2
@@ -12,8 +13,12 @@ const changeSettings = (value: number, settingName: 'columns'| 'rows') => {
     store.dispatch(CreateSettingsAction({[settingName]: newValue}))
 }
 
+const MarginDiv = styled.div`
+    margin-bottom: 40px;
+`
+
 const SettingsView = (props: Settings & Partial<GameState>) =>
-    <div>
+    <MarginDiv>
         <TextField
             id='rowSize'
             label='Количество рядов, не меньше 2'
@@ -28,7 +33,7 @@ const SettingsView = (props: Settings & Partial<GameState>) =>
             onChange={e => changeSettings(parseInt(e.target.value, 0), 'columns')}
             disabled={props.gameInProgress}
         />
-    </div>
+    </MarginDiv>
 
 const mapStateToProps = (state: AppState): Settings & Partial<GameState> => ({
     rows: state.settings.rows,

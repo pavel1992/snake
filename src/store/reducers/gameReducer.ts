@@ -1,6 +1,6 @@
 import {defaultState, GameState, default as store} from '../store'
 import {GameAction} from '../actionCreators/gameActionCreator'
-import {FOOD_EATEN, GAME_FINISHED, GAME_STARTED, SNAKE_MOVED} from '../constants'
+import {DIRECTION_CHANGED, FOOD_EATEN, GAME_FINISHED, GAME_STARTED, SNAKE_MOVED} from '../constants'
 import {contains} from 'ramda'
 
 export default (state: GameState = defaultState.gameState, action: GameAction): GameState => {
@@ -18,6 +18,7 @@ export default (state: GameState = defaultState.gameState, action: GameAction): 
                 gameInProgress: false,
                 snakePosition: [{x: 0, y: 0}],
                 foodPosition: defaultState.gameState.foodPosition,
+                direction: defaultState.gameState.direction,
             }
         case SNAKE_MOVED:
             return {
@@ -37,6 +38,11 @@ export default (state: GameState = defaultState.gameState, action: GameAction): 
                 score: state.score + 1,
             }
         }
+        case DIRECTION_CHANGED:
+            return {
+                ...state,
+                direction: action.payload.direction,
+            }
         default: return state
     }
 }

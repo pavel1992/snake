@@ -45,7 +45,7 @@ const getNextCellCoords = ({x, y}: Coords, direction: Direction) => {
 }
 
 const checkOutOfRange = ({x, y}: Coords, fieldSize: Settings): boolean =>
-    x >= fieldSize.columns || y >= fieldSize.rows
+    x >= fieldSize.columns || y >= fieldSize.rows || x < 0 || y < 0
 
 const foodEat = ({x, y}: Coords, foodPlace: Coords): boolean =>
     equals({x, y}, foodPlace)

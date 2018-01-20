@@ -16,6 +16,7 @@ const Row = styled.div`
 const Label = styled.div`
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-size: 14;
+    margin-bottom: 40px;
 `
 
 const startGame = () => store.dispatch(createGameAction(GAME_STARTED))
@@ -29,7 +30,7 @@ const renderCell = (y: number, {snakePosition, foodPosition}: Partial<GameState>
 
 
 const getTitle = (props: Partial<GameState>) =>
-    <Label>{props.firstRun ? 'Начать игру' : `Игра окончена. Ваш счет: ${props.score}`}</Label>
+    <Label>{props.firstRun ? 'Нажмите начать игру для старта' : `Игра окончена. Ваш счет: ${props.score}`}</Label>
 
 const getMenuScreen = ({score, firstRun}: Partial<GameState>) =>
     <>

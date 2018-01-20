@@ -2,6 +2,7 @@ import {combineReducers} from 'redux'
 import settingsReducer from './reducers/settingsReducer'
 import gameReducer from './reducers/gameReducer'
 import {applyMiddleware, compose, createStore, Store} from 'redux'
+import {runGameMiddleware} from './middlewares/runGameMiddleware'
 
 const REDUX_DEV_TOOLS = '__REDUX_DEVTOOLS_EXTENSION__'
 
@@ -10,7 +11,7 @@ export type Settings = {
     columns: number
 }
 
-enum Direction {
+export enum Direction {
     RIGHT,
     LEFT,
     TOP,
@@ -43,8 +44,8 @@ export const defaultState: AppState = {
     },
     gameState: {
         direction: Direction.RIGHT,
-        snakePosition: [{x: 1, y: 1}],
-        foodPosition: {x: 5, y: 5},
+        snakePosition: [{x: 0, y: 0}],
+        foodPosition: {x: 5, y: 0},
         score: 0,
         firstRun: true,
         gameInProgress: false,
@@ -53,12 +54,16 @@ export const defaultState: AppState = {
 
 const reducers = combineReducers({settings: settingsReducer, gameState: gameReducer})
 
-const getFrontEndMeddlewares = () =>
-    window[REDUX_DEV_TOOLS] &&
+const getFrontEndMiddlewares = () =>
+    window[REDUX_DEV_TOOLS] ?
         compose(
+            applyMiddleware(runGameMiddleware),
             window[REDUX_DEV_TOOLS]()
+        ) :
+        compose(
+            applyMiddleware(runGameMiddleware)
         )
 
-const store = createStore(reducers, getFrontEndMeddlewares())
+const store = createStore(reducers, getFrontEndMiddlewares())
 
 export default store

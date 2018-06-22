@@ -16,8 +16,10 @@ const DirectionKeys = [
 const listener = (event: KeyboardEvent) => {
     if (contains(event.key)(DirectionKeys)) {
         const newDirection = getDirection(event.key)
-        if (!areOppositeDirections(newDirection, store.getState().gameState.direction))
-            store.dispatch(createGameAction(DIRECTION_CHANGED, {direction: newDirection}))
+        if (!areOppositeDirections(newDirection, store.getState().gameState.direction)
+            && store.getState().gameState.direction !== newDirection
+        )
+                store.dispatch(createGameAction(DIRECTION_CHANGED, {direction: newDirection}))
     }
 }
 
